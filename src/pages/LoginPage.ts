@@ -1,34 +1,26 @@
-import { Page, Locator, expect } from '@playwright/test';
-import { BasePage } from './basePage';
-import { config } from '../config/config';
+import { Page, expect } from '@playwright/test';
+import { BasePage } from './BasePage';
 
 export class LoginPage extends BasePage {
-
-  private usernameInput: Locator;
-  private passwordInput: Locator;
-  private loginButton: Locator;
-  private successMessage: Locator;
-
   constructor(page: Page) {
     super(page);
-
-    this.usernameInput = page.locator('#username');
-    this.passwordInput = page.locator('#password');
-    this.loginButton = page.locator('button[type="submit"]');
-    this.successMessage = page.locator('.alert-success');
   }
 
-  async openLoginPage() {
-    await this.navigate(`${config.baseUrl}login`);
+  async open() {
+    await this.navigate('/login');
   }
 
   async login(username: string, password: string) {
-    await this.fill(this.usernameInput, username);
-    await this.fill(this.passwordInput, password);
-    await this.click(this.loginButton);
+    await this.page.fill('#username', username);
+    await this.page.fill('#password', password);
+    await this.page.click('button[type="submit"]');
   }
 
-  async verifyLoginSuccess() {
-    await expect(this.successMessage).toBeVisible();
+  async verifySuccess() {
+    await expect(this.page.locator('.alert-success')).toBeVisible();
+  }
+
+  async verifyError() {
+    await expect(this.page.locator('.alert-danger')).toBeVisible();
   }
 }

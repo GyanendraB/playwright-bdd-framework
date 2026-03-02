@@ -1,7 +1,6 @@
-Feature: Login
+Feature: Login functionality
 
-  Scenario: User logs in with valid credentials
-    Given I navigate to the login page
-    When I enter valid username and password
-    And I click the login button
-    Then I should be redirected to the dashboard
+  Scenario: Successful login
+    Given user navigates to login page
+    When user logs in with valid credentials
+    Then login should be successful

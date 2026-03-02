@@ -1,7 +1,7 @@
 import { Page } from '@playwright/test';
 ;
 import { config } from '../config/config';
-import { BasePage } from './basePage';
+import { BasePage } from './BasePage';
 
 export class HomePage extends BasePage {
 
