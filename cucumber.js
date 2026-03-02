@@ -4,7 +4,7 @@ module.exports = {
       "src/steps/**/*.ts",
       "src/hooks/**/*.ts"
     ],
-    requireModule: ["ts-node/register"],
+    requireModule: ["ts-node/register/transpile-only"],
     format: [
       "progress-bar",
       "summary",
