@@ -1,11 +1,15 @@
 import dotenv from 'dotenv';
 import path from 'path';
 
-const env = process.env.ENV || 'qa';
+// If variables already exist (CI), skip dotenv
+if (!process.env.BASE_URL) {
 
-const envFile = path.resolve(`src/config/env/${env}.env`);
+  const env = process.env.ENV || 'qa';
 
-dotenv.config({ path: envFile, override: false });
+  const envFile = path.resolve(`src/config/env/${env}.env`);
+
+  dotenv.config({ path: envFile });
+}
 
 export const config = {
   baseUrl: process.env.BASE_URL!,
