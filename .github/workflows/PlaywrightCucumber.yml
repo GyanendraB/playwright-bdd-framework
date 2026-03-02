@@ -6,6 +6,8 @@ on:
   pull_request:
     branches: [ master ]
   workflow_dispatch:
+  schedule:
+    - cron: "*/30 * * * *"   # Every 30 minutes (UTC)
 
 jobs:
 
@@ -29,36 +31,14 @@ jobs:
         with:
           node-version: 20
 
-      - name: Debug Node Version
-        run: node -v
-
-      - name: Debug NPM Version
-        run: npm -v
-
-      - name: Show Working Directory
-        run: pwd
-
-      - name: List Project Files
-        run: ls -R
-
-      - name: Debug Environment Variables
-        run: |
-          echo "ENV=$ENV"
-          echo "BASE_URL=$BASE_URL"
-          echo "TEST_USERNAME=$TEST_USERNAME"
-          echo "TEST_PASSWORD=SET"
-          echo "BROWSER=$BROWSER"
-
       - name: Install Dependencies
         run: npm install
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Run Tests (Verbose)
-        run: |
-          echo "Starting Cucumber Tests..."
-          npx cucumber-js --format progress --format summary --require-module ts-node/register/transpile-only || true
+      - name: Run Tests
+        run: npm test || true
 
       - name: Generate Allure Report
         run: npm run allure:generate || true
@@ -69,3 +49,32 @@ jobs:
           name: allure-report
           path: allure-report
           if-no-files-found: ignore
+
+      # 📧 Send Email Notification
+      - name: Send Email with Allure Report
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: ${{ secrets.SMTP_HOST }}
+          server_port: ${{ secrets.SMTP_PORT }}
+          username: ${{ secrets.SMTP_USER }}
+          password: ${{ secrets.SMTP_PASS }}
+
+          subject: "Playwright Automation Report - Run #${{ github.run_number }}"
+          to: ${{ secrets.EMAIL_TO }}
+          from: "Automation CI <${{ secrets.SMTP_USER }}>"
+
+          body: |
+            Hello,
+
+            Playwright automation execution completed.
+
+            Repository: ${{ github.repository }}
+            Run Number: ${{ github.run_number }}
+
+            Download Allure Report:
+            https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+            Regards,
+            Automation CI
+
+          attachments: allure-report/index.html
