@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import path from 'path';
 
-// If variables already exist (CI), skip dotenv
+// Load env file only if not running in CI
 if (!process.env.BASE_URL) {
 
   const env = process.env.ENV || 'qa';
@@ -13,7 +13,7 @@ if (!process.env.BASE_URL) {
 
 export const config = {
   baseUrl: process.env.BASE_URL!,
-  username: process.env.USERNAME!,
-  password: process.env.PASSWORD!,
+  username: process.env.TEST_USERNAME!,
+  password: process.env.TEST_PASSWORD!,
   browser: process.env.BROWSER || 'chromium'
 };

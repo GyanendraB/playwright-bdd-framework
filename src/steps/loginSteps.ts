@@ -16,6 +16,8 @@ Given('I open the login page', async function (this: CustomWorld) {
 When('I login with valid credentials', async function () {
 
   await loginPage.login(config.username, config.password);
+  console.log("CONFIG USER:", config.username);
+  console.log("CONFIG URL:", config.baseUrl);
 
 });
 
