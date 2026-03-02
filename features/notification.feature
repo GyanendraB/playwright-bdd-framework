@@ -1,5 +1,6 @@
-Feature: Notification messages
+Feature: Notification message
 
-  Scenario: Display success notification
-    Given I trigger a success notification
-    Then I should see the success notification message
+  Scenario: Trigger notification
+    Given user navigates to notification page
+    When user clicks notification button
+    Then notification should appear

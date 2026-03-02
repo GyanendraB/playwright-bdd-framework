@@ -1,6 +1,6 @@
 Feature: Drag and drop
 
-  Scenario: Move an item by drag and drop
-    Given I navigate to the drag and drop page
-    When I drag item A to drop zone B
-    Then item A should appear inside drop zone B
+  Scenario: Drag element A to B
+    Given user navigates to drag drop page
+    When user drags element A to B
+    Then elements should be swapped

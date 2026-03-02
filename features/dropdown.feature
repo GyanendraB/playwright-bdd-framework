@@ -1,6 +1,6 @@
 Feature: Dropdown selection
 
-  Scenario: Select an option from dropdown
-    Given I navigate to the dropdown page
-    When I select "Option 2" from the dropdown
-    Then "Option 2" should be selected
+  Scenario: Select dropdown option
+    Given user navigates to dropdown page
+    When user selects option "Option 1"
+    Then selected option should be "Option 1"

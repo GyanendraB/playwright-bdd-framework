@@ -15,7 +15,7 @@ Before(async function (this: CustomWorld) {
 
 After(async function (this: CustomWorld, scenario) {
 
-  if (scenario.result?.status === Status.FAILED) {
+  if (scenario.result?.status === Status.FAILED && this.page) {
 
     const screenshot = await this.page.screenshot();
 

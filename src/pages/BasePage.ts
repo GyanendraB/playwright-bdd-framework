@@ -1,7 +1,7 @@
 import { Page, Locator } from '@playwright/test';
+import { config } from '../config/config';
 
 export class BasePage {
-
   protected page: Page;
 
   constructor(page: Page) {
@@ -9,7 +9,8 @@ export class BasePage {
   }
 
   async navigate(url: string) {
-    await this.page.goto(url);
+    const fullUrl = url.startsWith('http') ? url : `${config.baseUrl}${url}`;
+    await this.page.goto(fullUrl);
   }
 
   async click(locator: Locator) {
@@ -19,13 +20,4 @@ export class BasePage {
   async fill(locator: Locator, text: string) {
     await locator.fill(text);
   }
-
-  async getText(locator: Locator): Promise<string> {
-    return (await locator.textContent()) || "";
-  }
-
-  async waitForVisible(locator: Locator) {
-    await locator.waitFor({ state: 'visible' });
-  }
-
 }
