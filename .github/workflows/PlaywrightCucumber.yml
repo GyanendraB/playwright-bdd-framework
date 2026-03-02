@@ -12,6 +12,13 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      ENV: qa
+      BASE_URL: ${{ secrets.BASE_URL }}
+      TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
+      TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+      BROWSER: ${{ secrets.BROWSER }}
+
     steps:
 
       - name: Checkout Repository
@@ -22,20 +29,36 @@ jobs:
         with:
           node-version: 20
 
+      - name: Debug Node Version
+        run: node -v
+
+      - name: Debug NPM Version
+        run: npm -v
+
+      - name: Show Working Directory
+        run: pwd
+
+      - name: List Project Files
+        run: ls -R
+
+      - name: Debug Environment Variables
+        run: |
+          echo "ENV=$ENV"
+          echo "BASE_URL=$BASE_URL"
+          echo "TEST_USERNAME=$TEST_USERNAME"
+          echo "TEST_PASSWORD=SET"
+          echo "BROWSER=$BROWSER"
+
       - name: Install Dependencies
         run: npm install
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Run Tests
-        run: npm test
-        env:
-          ENV: qa
-          BASE_URL: ${{ secrets.BASE_URL }}
-          TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
-          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
-          BROWSER: ${{ secrets.BROWSER }}
+      - name: Run Tests (Verbose)
+        run: |
+          echo "Starting Cucumber Tests..."
+          npx cucumber-js --format progress --format summary --require-module ts-node/register/transpile-only || true
 
       - name: Generate Allure Report
         run: npm run allure:generate || true

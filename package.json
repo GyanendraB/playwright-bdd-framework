@@ -2,18 +2,16 @@
   "name": "playwrightpractice",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "test": "cross-env ENV=qa cucumber-js",
-    "test:single": "cross-env ENV=qa cucumber-js --parallel 0",
-    "test:headed": "cross-env ENV=qa HEAD=true cucumber-js",
-    "allure:generate": "allure generate ./allure-results --clean",
-    "allure:open": "allure open ./allure-report",
-    "clean": "rimraf reports",
-    "report:cucumber": "node ./scripts/generate-cucumber-report.js",
-    "test:reports": "cross-env ENV=qa cucumber-js && npm run report:cucumber && npm run allure:generate",
-    "test:reports:single": "cross-env ENV=qa cucumber-js --parallel 0 && npm run report:cucumber && npm run allure:generate",
-    "debug:cucumber": "node ./scripts/run-cucumber-debug.js"
-  },
+ "scripts": {
+  "test": "cross-env ENV=qa cucumber-js --require-module ts-node/register/transpile-only --format progress --format summary",
+  "test:headed": "cross-env ENV=qa HEAD=true cucumber-js --require-module ts-node/register/transpile-only",
+  "test:single": "cross-env ENV=qa cucumber-js --parallel 0 --require-module ts-node/register/transpile-only",
+  "test:reports": "npm run test && npm run allure:generate",
+  "allure:generate": "allure generate ./allure-results --clean",
+  "allure:open": "allure open ./allure-report",
+
+  "clean": "rimraf reports"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
