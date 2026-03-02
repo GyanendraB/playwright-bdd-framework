@@ -5,6 +5,7 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+  workflow_dispatch:
 
 jobs:
 
@@ -29,13 +30,19 @@ jobs:
 
       - name: Run Tests
         run: npm test
+        env:
+          ENV: qa
+          BASE_URL: ${{ secrets.BASE_URL }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          BROWSER: ${{ secrets.BROWSER }}
 
       - name: Generate Allure Report
-        run: |
-          npm run allure:generate || true
+        run: npm run allure:generate || true
 
       - name: Upload Allure Report
         uses: actions/upload-artifact@v4
         with:
           name: allure-report
           path: allure-report
+          if-no-files-found: ignore
