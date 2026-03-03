@@ -7,7 +7,7 @@ export class ElementsPage extends BasePage {
   }
 
   async open() {
-    await this.navigate('/add_remove_elements/');
+    await this.navigate('/add-remove-elements/');
   }
 
   async add() {

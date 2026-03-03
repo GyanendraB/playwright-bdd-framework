@@ -10,7 +10,7 @@ export class UploadPage extends BasePage {
     await this.navigate('/upload');
   }
 
-  async upload(file: string) {
-    await this.page.setInputFiles('#file-upload', file);
-  }
+  async upload(filePath: string) {
+  await this.page.setInputFiles('#fileInput', filePath);
+}
 }

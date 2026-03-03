@@ -7,7 +7,7 @@ export class NotificationPage extends BasePage {
   }
 
   async open() {
-    await this.navigate('/notification_message_rendered');
+    await this.navigate('/notification-message-rendered');
   }
 
   async trigger() {

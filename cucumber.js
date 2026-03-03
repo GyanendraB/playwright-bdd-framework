@@ -14,6 +14,6 @@ module.exports = {
     paths: [
       "features/**/*.feature"
     ],
-    parallel: 1
+    parallel: 10
   }
 };

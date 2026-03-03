@@ -11,11 +11,16 @@ Given('user navigates to download page', async function (this: CustomWorld) {
 });
 
 When('user downloads a file', async function (this: CustomWorld) {
-  const downloadPromise = this.page.waitForEvent('download');
-  await this.page.locator('a').first().click();
-  const download = await downloadPromise;
 
-  this.downloadPath = await download.path();
+  const [download] = await Promise.all([
+    this.page.waitForEvent('download'),
+    this.page.locator('a[download]').first().click(),
+    console.log(await this.page.locator('a[download]').count())
+  ]);
+
+  const path = await download.path();
+  this.downloadPath = path;
+
 });
 
 Then('file should be downloaded', async function (this: CustomWorld) {

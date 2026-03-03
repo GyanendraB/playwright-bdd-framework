@@ -8,7 +8,9 @@ setDefaultTimeout(60_000);
 Before(async function (this: CustomWorld) {
 
   this.browser = await BrowserManager.launchBrowser(config.browser);
-  this.context = await this.browser.newContext();
+  this.context = await this.browser.newContext({
+  acceptDownloads: true
+});
   this.page = await this.context.newPage();
 
 });

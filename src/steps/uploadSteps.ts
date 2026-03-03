@@ -14,7 +14,7 @@ Given('user navigates to upload page', async function (this: CustomWorld) {
 When('user uploads file {string}', async function (fileName: string) {
   const filePath = path.resolve(`test-data/${fileName}`);
   await uploadPage.upload(filePath);
-  await this.page.click('#file-submit');
+  await this.page.click('#fileSubmit');
 });
 
 Then('upload success message should appear', async function (this: CustomWorld) {
