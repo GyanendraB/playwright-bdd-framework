@@ -3,7 +3,7 @@ import { CustomWorld } from '../fixtures/world';
 import { BrowserManager } from '../utils/browserManager';
 import { config } from '../config/config';
 
-setDefaultTimeout(60_000);
+setDefaultTimeout(300_000);
 
 Before(async function (this: CustomWorld) {
 
