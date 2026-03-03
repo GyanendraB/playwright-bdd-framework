@@ -3,6 +3,13 @@ node_modules/
 
 # Reports
 reports/
+allure-report/
+allure-results/
+playwright-report/
+blob-report/
+coverage/
+test-results/
+@rerun.txt
 
 # Environment files (do NOT commit .env files)
 *.env
