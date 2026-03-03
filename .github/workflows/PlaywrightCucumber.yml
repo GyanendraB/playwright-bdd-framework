@@ -7,7 +7,7 @@ on:
     branches: [ master ]
   workflow_dispatch:
   schedule:
-    - cron: "*/30 * * * *"   # Every 30 minutes (UTC)
+    - cron: "30 4  * * *"   # 10:00 AM IST daily
 
 jobs:
 
